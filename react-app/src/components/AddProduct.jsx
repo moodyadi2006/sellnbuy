@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import categories from './categoriesList.js'
+import API_URL from '../constants.js';
 function AddProduct() {
   const navigate = useNavigate();
   const [productname, setproductname] = useState('');
@@ -37,7 +38,7 @@ function AddProduct() {
       // formdata.append('productimage4', productimage4);
       // formdata.append('productimage5', productimage5);
       formdata.append('userId', localStorage.getItem('userId'));
-      const url = 'http://localhost:4000/add-product'
+      const url = API_URL + 'add-product'
       axios.post(url, formdata, {
         headers: {
           'Content-Type': 'multipart/form-data'

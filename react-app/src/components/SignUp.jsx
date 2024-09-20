@@ -2,6 +2,7 @@ import Header from './Header.jsx';
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import API_URL from '../constants.js';
 function SignUp() {
   const [username, setusername] = useState('')
   const [gsuiteid, setgsuiteid] = useState('')
@@ -9,7 +10,7 @@ function SignUp() {
   const [mobile, setmobile] = useState('')
   const handleApi = () => {
     console.log({ username, gsuiteid, password })
-    const url = 'http://localhost:4000/signup'
+    const url = API_URL + '/signup'
     const data = { username, gsuiteid, password, mobile }
     axios.post(url, data)
       .then((res) => {
@@ -27,7 +28,7 @@ function SignUp() {
     <div >
       <Header />
       <div className=' p-3 m-3'>
-       <h3>Welcome to SignUp page...</h3> 
+        <h3>Welcome to SignUp page...</h3>
         <br></br>
         USERNAME
         <input className='form-control' type="text" value={username} onChange={(event) => {

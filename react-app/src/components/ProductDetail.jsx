@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import Header from './Header.jsx';
+import API_URL from '../constants.js';
 function ProductDetail() {
   const [product, setproduct] = useState();
   const [user, setuser] = useState();
   const p = useParams();
   useEffect(() => {
-    const url = 'http://localhost:4000/get-product/' + p.productId;
+    const url = API_URL + '/get-product/' + p.productId;
     axios.get(url)
       .then((res) => {
         if (res.data.product) {
@@ -22,7 +23,7 @@ function ProductDetail() {
 
   const handleContact = (addedBy) => {
     console.log(addedBy)
-    const url = 'http://localhost:4000/get-user/' + addedBy;
+    const url = API_URL + '/get-user/' + addedBy;
     axios.get(url)
       .then((res) => {
         if (res.data.user) {
@@ -40,8 +41,8 @@ function ProductDetail() {
       <div>
         {product &&
           <div className="d-flex justify-content-between flex-wrap" >
-            <div> <img width="300px" height="200px" src={`http://localhost:4000/uploads/${product.productimage}`} />
-              <img width="300px" height="200px" src={`http://localhost:4000/uploads/${product.productimage2}`} /></div>
+            <div> <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${product.productimage}`} />
+              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${product.productimage2}`} /></div>
             <div>
               <h3 className="m-2 text-primary"> ₹ {product.productprice} /-</h3>
               <p className="m-2 text-primary"> {product.productname} | {product.productcategory}</p>

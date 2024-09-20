@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios"
 import Categories from './Categories.jsx'
+import API_URL from "../constants.js";
 function MyProfile() {
   const [user, setuser] = useState({})
   useEffect(() => {
-    const url = 'http://localhost:4000/my-profile/' + localStorage.getItem('userId')
+    const url = API_URL+'/my-profile/' + localStorage.getItem('userId')
     axios.get(url)
       .then((res) => {
         if (res.data.user) {

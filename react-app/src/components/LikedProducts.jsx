@@ -6,6 +6,7 @@ import axios from "axios"
 import Categories from './Categories.jsx'
 import { FaHeart } from "react-icons/fa";
 import './Home.css'
+import API_URL from '../constants.js';
 function LikedProducts() {
   const navigate = useNavigate();
   const [products, setproducts] = useState([]);
@@ -13,9 +14,9 @@ function LikedProducts() {
   const [search, setsearch] = useState('');
 
   useEffect(() => {
-    const url = 'http://localhost:4000/get-liked-products'
-    let data={userId: localStorage.getItem('userId')}
-    axios.post(url,data)
+    const url = API_URL + '/get-liked-products'
+    let data = { userId: localStorage.getItem('userId') }
+    axios.post(url, data)
       .then((res) => {
         if (res.data.products) {
           setproducts(res.data.products);
@@ -52,11 +53,11 @@ function LikedProducts() {
   const handleLike = (productId) => {
     let userId = localStorage.getItem('userId');
     console.log(productId, userId);
-    const url = 'http://localhost:4000/liked-products'
-    const data={userId,productId}
-    axios.post(url,data)
+    const url = API_URL + '/liked-products'
+    const data = { userId, productId }
+    axios.post(url, data)
       .then((res) => {
-        if(res.data.message){
+        if (res.data.message) {
           alert('Liked successfully....')
         }
       })
@@ -75,7 +76,7 @@ function LikedProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={`http://localhost:4000/uploads/${item.productimage}`} />
+              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
                 <p className="m-2 text-primary">{item.productdescription}</p>
@@ -93,7 +94,7 @@ function LikedProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={`http://localhost:4000/uploads/${item.productimage}`} />
+              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
 
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
