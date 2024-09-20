@@ -86,7 +86,7 @@ module.exports.addProduct = (req, res) => {
 
 module.exports.getProducts = (req, res) => {
   const catName = req.query.catName;
-  Products.findOne({ productcategory: catName })
+  Products.findOne()
     .then((result) => {
       res.send({ message: "product found", products: result })
     })
