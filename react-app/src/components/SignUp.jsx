@@ -2,14 +2,13 @@ import Header from './Header.jsx';
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import API_URL from '../constants.js';
+import API_URL from '../constants';
 function SignUp() {
   const [username, setusername] = useState('')
   const [gsuiteid, setgsuiteid] = useState('')
   const [password, setpassword] = useState('')
   const [mobile, setmobile] = useState('')
   const handleApi = () => {
-    console.log({ username, gsuiteid, password })
     const url = API_URL + '/signup'
     const data = { username, gsuiteid, password, mobile }
     axios.post(url, data)

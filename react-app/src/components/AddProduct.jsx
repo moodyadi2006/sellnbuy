@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import categories from './categoriesList.js'
-import API_URL from '../constants.js';
+import API_URL from '../constants';
 function AddProduct() {
   const navigate = useNavigate();
   const [productname, setproductname] = useState('');

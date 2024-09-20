@@ -6,7 +6,7 @@ import axios from "axios"
 import Categories from './Categories.jsx'
 import { FaHeart } from "react-icons/fa";
 import './Home.css'
-import API_URL from '../constants.js';
+import API_URL from '../constants';
 function LikedProducts() {
   const navigate = useNavigate();
   const [products, setproducts] = useState([]);

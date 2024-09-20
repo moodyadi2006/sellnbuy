@@ -35,14 +35,17 @@ module.exports.dislikedProducts = (req, res) => {
 }
 
 module.exports.signUp = (req, res) => {
-  const userId = req.body.userId
-  Products.find({ addedBy: userId })
-    .then((result) => {
-      res.send({ message: 'success', products: result })
+  const username = req.body.username;
+  const password = req.body.password;
+  const gsuiteid = req.body.gsuiteid;
+  const mobile = req.body.mobile;
+  const user = new Users({ username: username, password: password, gsuiteid, mobile });
+  user.save()
+    .then(() => {
+      res.send({ message: 'saved success.' })
     })
-    .catch((err) => {
-      console.log(err);
-      res.send({ message: " servers error" })
+    .catch(() => {
+      res.send({ message: 'server err' })
     })
 }
 

@@ -2,6 +2,7 @@ import Header from './Header.jsx';
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import API_URL from '../constants'
 function Login() {
   const navigate = useNavigate();
   const [username, setusername] = useState('')
@@ -9,7 +10,7 @@ function Login() {
   const [password, setpassword] = useState('')
   const handleApi = () => {
     console.log({ username, gsuiteid, password })
-    const url = 'http://localhost:4000/login'
+    const url = API_URL + '/login'
     const data = { username, gsuiteid, password }
     axios.post(url, data)
       .then((res) => {
@@ -48,7 +49,7 @@ function Login() {
           setpassword(event.target.value)
         }} />
         <br></br>
-        <button className=" btn btn-primary mr-3"onClick={handleApi} >Login</button>
+        <button className=" btn btn-primary mr-3" onClick={handleApi} >Login</button>
         <Link className=" m-3" to="/signup"> SIGNUP</Link>
       </div>
     </div>

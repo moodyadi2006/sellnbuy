@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import Header from './Header.jsx';
-import API_URL from '../constants.js';
+import API_URL from '../constants';
 function ProductDetail() {
   const [product, setproduct] = useState();
   const [user, setuser] = useState();

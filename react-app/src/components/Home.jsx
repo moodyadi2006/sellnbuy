@@ -5,7 +5,7 @@ import axios from "axios"
 import Categories from './Categories.jsx'
 import { FaHeart } from "react-icons/fa";
 import './Home.css'
-import API_URL from '../constants.js';
+import API_URL from '../constants';
 
 function Home() {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ function Home() {
     navigate('/product/' + id)
   };
 
-  const handleDisLike = (productId,e) => {
+  const handleDisLike = (productId, e) => {
     e.stopPropagation();
     let userId = localStorage.getItem('userId');
     if (!userId) {
