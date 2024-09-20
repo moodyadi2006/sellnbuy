@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
+var jwt = require('jsonwebtoken');
 const multer = require('multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -26,8 +27,8 @@ mongoose.connect('mongodb+srv://moodyadi30:V6uoXxKO7k2tKHSO@cluster0.sn4hv.mongo
 
 
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json()); Remember
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -36,14 +37,14 @@ app.get('/', (req, res) => {
 app.get('/search', productController.search)
 app.post('/liked-products', userController.likedProducts)
 app.post('/disliked-products', userController.dislikedProducts)
-app.post('/add-product', upload.fields([{ name: 'productimage' }, { name: 'productimage2' }]), productController.addProduct )
+app.post('/add-product', upload.fields([{ name: 'productimage' }, { name: 'productimage2' }]), productController.addProduct)
 app.get('/get-products', productController.getProducts)
-app.post('/get-liked-products', productController.getlikedProducts)
-app.post('/my-products', productController.myProducts )
+app.post('/get-liked-products', userController.getlikedProducts)
+app.post('/my-products', productController.myProducts)
 app.get('/get-product/:pId', productController.getProductsPid)
 app.get('/my-profile/:userId', userController.myProfileuid)
-app.get('/get-user/:uId', userController.getUseruid )
-app.post('/signup',userController.signUp)
+app.get('/get-user/:uId', userController.getUseruid)
+app.post('/signup', userController.signUp)
 app.post('/login', userController.login)
 
 app.listen(port, () => {

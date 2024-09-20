@@ -16,14 +16,74 @@ function Header(props) {
 
   let locations = [
     {
-      "latitude": 28.6139,
-      "longitude": 77.2090,
-      "placeName": "New Delhi,Delhi"
+      "latitude": 29.863599772552565,
+      "longitude": 77.90051656884533,
+      "placeName": "Jawahar Bhawan"
     },
     {
-      "latitude": 19.0760,
-      "longitude": 72.8777,
-      "placeName": "Mumbai,Maharashtra"
+      "latitude": 29.865185678618026,
+      "longitude": 77.90011093506409,
+      "placeName": "Sarojini Bhawan"
+    },
+    {
+      "latitude": 29.870875384632107,
+      "longitude": 77.89368748223066,
+      "placeName": "Rajendra Bhawan"
+    },
+    {
+      "latitude": 29.871289440868853,
+      "longitude": 77.89643308076067,
+      "placeName": "Cautley Bhawan"
+    },
+    {
+      "latitude": 29.869679679978066,
+      "longitude": 77.89485159559966,
+      "placeName": "Rajiv Bhawan"
+    },
+    {
+      "latitude": 29.871096738924997,
+      "longitude": 77.8955392542031,
+      "placeName": "RadhaKrishnan Bhawan"
+    },
+    {
+      "latitude": 29.87147957621951,
+      "longitude": 77.89425887376751,
+      "placeName": "Ganga Bhawan"
+    },
+    {
+      "latitude": 29.865428994494604,
+      "longitude": 77.89149340517301,
+      "placeName": "Azad Bhawan"
+    },
+    {
+      "latitude": 29.86519743110611,
+      "longitude": 77.89028471075163,
+      "placeName": "MRC Bhawan"
+    },
+    {
+      "latitude": 29.867436981039535,
+      "longitude": 77.90108952397583,
+      "placeName": "Kasturba Bhawan"
+    },
+    {
+      "latitude": 29.86466351032444,
+      "longitude": 77.89279844339035,
+      "placeName": "Ravindra Bhawan"
+    },
+    {
+      "latitude": 29.861723026215195,
+      "longitude": 77.89407756446556,
+      "placeName": "Govind Bhawan"
+    },
+    {
+      "latitude": 29.860791291649893,
+      "longitude": 77.89614626400649,
+      "placeName": "Himalaya Bhawan"
+    },
+    {
+      "latitude": 29.861536656516044,
+      "longitude": 77.89996625980447,
+      "placeName": "Vigyan Bhawan"
     },
   ]
   return (
@@ -67,8 +127,8 @@ function Header(props) {
           zIndex: 1,
           background: '#002f34 ',
           position: 'absolute',
-          top: 0,
-          right: 0,
+          top: '0',
+          right: '0',
           marginTop: '50px',
           marginRight: '50px',
           fontSize: '14px',

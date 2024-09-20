@@ -1,7 +1,7 @@
-import Header from './Header.jsx';
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import axios from 'axios'
+import Header from './Header';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 import API_URL from '../constants';
 function SignUp() {
   const [username, setusername] = useState('')
@@ -13,13 +13,11 @@ function SignUp() {
     const data = { username, gsuiteid, password, mobile }
     axios.post(url, data)
       .then((res) => {
-        console.log(res.data);
         if (res.data.message) {
           alert(res.data.message);
         }
       })
       .catch((err) => {
-        console.error(err);
         alert('Server error');
       });
   }

@@ -48,17 +48,7 @@ module.exports.search = (req, res) => {
     })
 }
 
-module.exports.getlikedProducts = (req, res) => {
-  const userId = req.body.userId
-  Products.find({ addedBy: userId })
-    .then((result) => {
-      res.send({ message: 'success', products: result })
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send({ message: " servers error" })
-    })
-}
+
 
 module.exports.addProduct = (req, res) => {
   const productlatitude = req.body.productlatitude;
@@ -67,8 +57,8 @@ module.exports.addProduct = (req, res) => {
   const productdescription = req.body.productdescription;
   const productprice = req.body.productprice;
   const productcategory = req.body.productcategory;
-  const productimage = req.files.productimage[0].filename;
-  const productimage2 = req.files.productimage2[0].filename;
+  const productimage = req.files.productimage[0].path;  //Remember
+  const productimage2 = req.files.productimage2[0].path;  //Remember
   const addedBy = req.body.userId;
 
   const product = new Products({
@@ -86,9 +76,13 @@ module.exports.addProduct = (req, res) => {
 
 module.exports.getProducts = (req, res) => {
   const catName = req.query.catName;
-  Products.find()
+  let _f = {} //Remember
+  if (catName) {
+    _f = { productcategory: catName }
+  }
+  Products.find(_f)
     .then((result) => {
-      res.send({ message: "product found", products: result })
+      res.send({ message: "success", products: result })
     })
     .catch((err) => {
       res.send({ message: " servers error" })
@@ -97,26 +91,23 @@ module.exports.getProducts = (req, res) => {
 
 module.exports.getProductsPid = (req, res) => {
   Products.findOne({ _id: req.params.pId })
-    .populate('addedBy')
+    // .populate('addedBy') Remember
     .then((result) => {
-      console.log(result, "user data")
       res.send({ message: "product found", product: result })
     })
     .catch((err) => {
-      console.error(err);
       res.send({ message: " servers error" })
     })
 
 }
 
 module.exports.myProducts = (req, res) => {
-  const userId = req.body.userId
+  const userId = req.body.userId;
   Products.find({ addedBy: userId })
     .then((result) => {
       res.send({ message: 'success', products: result })
     })
     .catch((err) => {
-      console.log(err);
       res.send({ message: " servers error" })
     })
 }

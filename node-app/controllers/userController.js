@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
 
-const jwt = require('jsonwebtoken')
 const Users = mongoose.model('Users', {
   username: String,
   password: String,
@@ -57,9 +57,9 @@ module.exports.myProfileuid = (req, res) => {
       res.send({ message: "success", user: { gsuiteid: result.gsuiteid, mobile: result.mobile, username: result.username } })
     })
     .catch((err) => {
-      console.error(err);
       res.send({ message: " servers error" })
     })
+  return;
 }
 
 module.exports.getUseruid = (req, res) => {
@@ -69,7 +69,6 @@ module.exports.getUseruid = (req, res) => {
       res.send({ message: "success", user: { gsuiteid: result.gsuiteid, mobile: result.mobile, username: result.username } })
     })
     .catch((err) => {
-      console.error(err);
       res.send({ message: " servers error" })
     })
 }
@@ -97,5 +96,15 @@ module.exports.login = (req, res) => {
     })
     .catch(() => {
       res.send({ message: 'server error' })
+    })
+}
+
+module.exports.getlikedProducts = (req, res) => {    //Remember
+  Users.findOne({ _id: req.body.userId }).populate('likedProducts')
+    .then((result) => {
+      res.send({ message: 'success', products: result.likedProducts })
+    })
+    .catch((err) => {
+      res.send({ message: 'server err' })
     })
 }

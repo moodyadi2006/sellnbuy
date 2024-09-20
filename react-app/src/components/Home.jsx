@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Header from './Header.jsx'
+import Header from './Header';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios"
-import Categories from './Categories.jsx'
+import axios from "axios";
+import Categories from './Categories';
 import { FaHeart } from "react-icons/fa";
-import './Home.css'
+import './Home.css';
 import API_URL from '../constants';
 
 function Home() {
@@ -58,8 +58,7 @@ function Home() {
   }
 
   const handleCategory = (value) => {
-    console.log(value);
-    let filteredProducts = products.filter((item) => {
+    let filteredProducts = products.filter((item, index) => {
       if (item.productcategory === value) {
         return item;
       }
@@ -79,7 +78,6 @@ function Home() {
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          alert('Liked successfully....')
           setrefresh(!refresh)
         }
       })
@@ -104,7 +102,6 @@ function Home() {
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          alert('DisLiked successfully....')
           setrefresh(!refresh)
         }
       })
@@ -126,21 +123,20 @@ function Home() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
+              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
+              {/*`/uploads/${item.productimage}`   //Remember */}
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
-              <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
-                <p className="m-2 text-primary">{item.productdescription}</p>
-              </div>
-              <p className="m-2 text-primary"> {item.productprice} </p>
+              <h3 className="m-2 text-danger"> ₹ {item.productprice} /- </h3>
+              <p className="m-2 text-success"> {item.productdescription} </p>
 
             </div>
           )
         })}
       </div>}
       {!issearch && <div className="d-flex justify-content-center flex-wrap">
-        {products.length > 0 && products.map((item, index) => {
+        {products && products.length > 0 && products.map((item, index) => {
           return (
-            <div onClick={() => { handleProduct(item._id) }} key={item._id} className="card m-3">
+            <div onClick={() => handleProduct(item._id)} key={item._id} className="card m-3">
               <div className='icon-container'>
                 {
                   likedproducts.find((likedItem) =>
@@ -150,12 +146,11 @@ function Home() {
                     <FaHeart onClick={(e) => handleLike(item._id, e)} className='icons' />
                 }
               </div>
-              <img width="250px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
-              <p className="m-2 price-text"> ₹ {item.productprice} /-</p>
+              <img width="250px" height="200px" src={API_URL + '/' + item.productimage} /> {/* Remember */}
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
-              <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
-                <p className="m-2 text-primary">{item.productdescription}</p>
-              </div>
+              <h3 className="m-2 price-text"> ₹ {item.productprice} /-</h3>
+              <p className="m-2 text-success">{item.productdescription}</p>
+
 
             </div>
           )

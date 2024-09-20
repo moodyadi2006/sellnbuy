@@ -80,9 +80,7 @@
 
 .arrow {
   margin-left: 17px;
-  /* Space between text and arrow */
   border: solid transparency;
-  /* Base for the arrow */
   border-width: 5px 5px 0 5px;
 }
 

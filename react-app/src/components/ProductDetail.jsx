@@ -1,8 +1,7 @@
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
-import Header from './Header.jsx';
+import Header from './Header';
 import API_URL from '../constants';
 function ProductDetail() {
   const [product, setproduct] = useState();
@@ -14,6 +13,7 @@ function ProductDetail() {
       .then((res) => {
         if (res.data.product) {
           setproduct(res.data.product)
+          localStorage.setItem('productId', res.data.product._id)
         }
       })
       .catch((err) => {
@@ -22,7 +22,6 @@ function ProductDetail() {
   }, [])
 
   const handleContact = (addedBy) => {
-    console.log(addedBy)
     const url = API_URL + '/get-user/' + addedBy;
     axios.get(url)
       .then((res) => {
@@ -41,12 +40,14 @@ function ProductDetail() {
       <div>
         {product &&
           <div className="d-flex justify-content-between flex-wrap" >
-            <div> <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${product.productimage}`} />
-              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${product.productimage2}`} /></div>
-            <div>
-              <h3 className="m-2 text-primary"> ₹ {product.productprice} /-</h3>
+            <div> 
+              <img width="300px" height="200px" src={API_URL + '/' + product.productimage} />  {/*Remember */}
+              {product.productimage2 && <img width="300px" height="200px" src={API_URL + '/' + product.productimage2} />} {/*product.productimage2 new thing added */}
+              <h6> PRODUCT DETAILS : </h6>
+              {product.productdescription}
+              <h3 className="m-2 price-text"> ₹ {product.productprice} /-</h3>
               <p className="m-2 text-primary"> {product.productname} | {product.productcategory}</p>
-              <p className="m-2 text-primary">{product.productdescription}</p>
+              <p className="m-2 text-success">{product.productdescription}</p>
               {product.addedBy &&
                 <button onClick={() => handleContact(product.addedBy)}> SHOW CONTACT DETAILS</button>}
               {user && user.username && <h4> {user.username} </h4>}

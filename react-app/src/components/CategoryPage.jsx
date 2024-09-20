@@ -1,17 +1,16 @@
-import { useEffect } from 'react';
-import Header from './Header.jsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import Header from './Header';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from "axios"
+import axios from "axios";
 import Categories from './Categories.jsx'
 import { FaHeart } from "react-icons/fa";
-import './Home.css'
+import './Home.css';
 import API_URL from '../constants';
 function CategoryPage() {
   const navigate = useNavigate();
   const param = useParams();
   const [products, setproducts] = useState([]);
-  const [categoryproducts, setcategoryproducts] = useState('');
+  const [categoryproducts, setcategoryproducts] = useState([]);
   const [search, setsearch] = useState('');
   const [issearch, setissearch] = useState(false);
   const [likedproducts, setlikedproducts] = useState([]);
@@ -22,9 +21,6 @@ function CategoryPage() {
       .then((res) => {
         if (res.data.products) {
           setproducts(res.data.products);
-          setcategoryproducts(res.data.products);
-          console.log(products);
-          console.log(categoryproducts);
         }
       })
       .catch((err) => {
@@ -59,7 +55,7 @@ function CategoryPage() {
       })
   }
   const handleCategory = (value) => {
-    let filteredProducts = products.filter((item) => {
+    let filteredProducts = products.filter((item, index) => {
       if (item.productcategory === value) {
         return item;
       }
@@ -70,12 +66,11 @@ function CategoryPage() {
   const handleLike = (productId, e) => {
     e.stopPropagation();
     let userId = localStorage.getItem('userId');
-    const url = API_URL + 'liked-products'
+    const url = API_URL + '/liked-products'
     const data = { userId, productId }
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          alert('Liked successfully....')
           setrefresh(!refresh);
         }
       })
@@ -95,7 +90,6 @@ function CategoryPage() {
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          alert('DisLiked successfully....')
           setrefresh(!refresh)
         }
       })
@@ -123,12 +117,12 @@ function CategoryPage() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
+              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
+              {/*`/uploads/${item.productimage}`   //Remember */}
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
-              <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
-                <p className="m-2 text-primary">{item.productdescription}</p>
-              </div>
-              <p className="m-2 text-primary"> {item.productprice} </p>
+              <h3 className="m-2 text-danger"> ₹ {item.productprice} /- </h3>
+              <p className="m-2 text-success">{item.productdescription}</p>
+
             </div>
           )
         })}
@@ -146,12 +140,11 @@ function CategoryPage() {
                     <FaHeart onClick={(e) => handleLike(item._id, e)} className='icons' />
                 }
               </div>
-              <img width="250px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
+              <img width="250px" height="200px" src={API_URL + '/' + item.productimage} />  {/*Remember*/}
               <p className="m-2 price-text"> ₹ {item.productprice} /-</p>
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
-              <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
-                <p className="m-2 text-primary">{item.productdescription}</p>
-              </div>
+              <p className="m-2 text-success">{item.productdescription}</p>
+
             </div>
           )
         })}

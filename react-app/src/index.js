@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 import Home from './components/Home';
 import Login from './components/Login';
 import AddProduct from './components/AddProduct';
-//import CategoryPage from './components/CategoryPage';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -21,16 +20,11 @@ import MyProfile from './components/MyProfile';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Home />
-    )
+    element: (<Home />),
   },
   {
     path: "/productcategory/:catName",
-    exact: 'true',
-    element: (
-      <CategoryPage />
-    )
+    element: (<CategoryPage />),
   },
   {
     path: "about",
@@ -41,7 +35,7 @@ const router = createBrowserRouter([
     element: (<Login />),
   },
   {
-    path: "/SignUp",
+    path: "/signup",
     element: (<SignUp />),
   },
   {

@@ -1,8 +1,8 @@
-import Header from './Header.jsx'
+import Header from './Header';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import categories from './categoriesList.js'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import categories from './categoriesList';
 import API_URL from '../constants';
 function AddProduct() {
   const navigate = useNavigate();
@@ -39,11 +39,12 @@ function AddProduct() {
       // formdata.append('productimage5', productimage5);
       formdata.append('userId', localStorage.getItem('userId'));
       const url = API_URL + '/add-product'
-      axios.post(url, formdata, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      axios.post(url, formdata)
+      // {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data'
+      //   }   //Remember
+      // })
         .then((res) => {
           if (res.data.message) {
             alert(res.data.message)

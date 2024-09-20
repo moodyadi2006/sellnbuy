@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
-import Header from './Header.jsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import Header from './Header';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios"
-import Categories from './Categories.jsx'
+import axios from "axios";
+import Categories from './Categories';
 import { FaHeart } from "react-icons/fa";
-import './Home.css'
+import './Home.css';
 import API_URL from '../constants';
 function MyProducts() {
   const navigate = useNavigate();
   const [products, setproducts] = useState([]);
-  const [categoryproducts, setcategoryproducts] = useState('');
+  const [categoryproducts, setcategoryproducts] = useState([]);
   const [search, setsearch] = useState('');
+  const [refresh, setrefresh] = useState(false);
 
   useEffect(() => {
     const url = API_URL + '/my-products'
@@ -25,7 +25,7 @@ function MyProducts() {
       .catch((err) => {
         alert('server error')
       })
-  }, [])
+  }, [refresh])
 
 
   const handlesearch = (value) => {
@@ -52,7 +52,6 @@ function MyProducts() {
   }
   const handleLike = (productId) => {
     let userId = localStorage.getItem('userId');
-    console.log(productId, userId);
     const url = API_URL + '/liked-products'
     const data = { userId, productId }
     axios.post(url, data)
@@ -76,12 +75,11 @@ function MyProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
+              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
-              <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
-                <p className="m-2 text-primary">{item.productdescription}</p>
-              </div>
-              <p className="m-2 text-primary"> {item.productprice} </p>
+              <h3 className="m-2 text-danger"> {item.productprice} </h3>
+              <p className="m-2 text-success">{item.productdescription}</p>
+
             </div>
           )
         })}
@@ -94,13 +92,12 @@ function MyProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
+              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
 
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
-              <div className="product-description" style={{ maxHeight: '100px', overflowY: 'auto' }}>
-                <p className="m-2 text-primary">{item.productdescription}</p>
-              </div>
-              <p className="m-2 text-primary"> {item.productprice} </p>
+              <h3 className="m-2 text-danger"> ₹ {item.productprice} /-</h3>
+              <p className="m-2 text-success">{item.productdescription}</p>
+
             </div>
           )
         })}

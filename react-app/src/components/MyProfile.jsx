@@ -1,14 +1,11 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import Header from "./Header";
-import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from "axios"
-import Categories from './Categories.jsx'
+import axios from "axios";
 import API_URL from "../constants";
 function MyProfile() {
   const [user, setuser] = useState({})
   useEffect(() => {
-    const url = API_URL + '/my-profile/' + localStorage.getItem('userId')
+    let url = API_URL + '/my-profile/' + localStorage.getItem('userId')
     axios.get(url)
       .then((res) => {
         if (res.data.user) {

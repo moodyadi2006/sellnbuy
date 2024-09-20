@@ -1,5 +1,5 @@
 import './Header.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import categories from './categoriesList';
 import { useState } from 'react';
 
@@ -11,10 +11,10 @@ function Categories() {
     setIsOpen((prev) => !prev);
   };
 
-  const handleCategoryClick = (item) => {
-    navigate('/productcategory/' + item);
-    setIsOpen(false);
-  };
+  // const handleCategoryClick = (item) => {
+  //   navigate('/productcategory/' + item);
+  //   setIsOpen(false);
+  // };  Remember
 
   return (
     <div className="category-container" style={{ cursor: "pointer" }}>
@@ -39,7 +39,7 @@ function Categories() {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {categories.map((item, index) => (
           <span
-            onClick={() => handleCategoryClick(item)}
+            onClick={() => navigate('/productcategory/' + item)}  //handleCategoryClick(item)
             key={index}
             className="category"
             style={{
@@ -55,7 +55,7 @@ function Categories() {
         <div className="dropdown">
           {categories.map((item, index) => (
             <span
-              onClick={() => handleCategoryClick(item)}
+              onClick={() => navigate('/productcategory/' + item)}
               key={index}
               className="category"
               style={{ display: 'block', cursor: 'pointer' }}

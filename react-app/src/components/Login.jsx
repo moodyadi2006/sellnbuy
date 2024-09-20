@@ -1,30 +1,28 @@
-import Header from './Header.jsx';
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import axios from 'axios'
-import API_URL from '../constants'
+import Header from './Header';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import API_URL from '../constants';
 function Login() {
   const navigate = useNavigate();
   const [username, setusername] = useState('')
   const [gsuiteid, setgsuiteid] = useState('')
   const [password, setpassword] = useState('')
   const handleApi = () => {
-    console.log({ username, gsuiteid, password })
     const url = API_URL + '/login'
     const data = { username, gsuiteid, password }
     axios.post(url, data)
       .then((res) => {
-        console.log(res.data)
         if (res.data.message) {
           if (res.data.token) {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('userId', res.data.userId)
+            localStorage.setItem('userName', res.data.username)
             navigate('/');
           }
         }
       })
       .catch((err) => {
-        console.log(err)
         alert('server error')
       })
   }
