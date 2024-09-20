@@ -92,7 +92,7 @@ function LikedProducts() {
           return (
             <div key={item._id} className="card m-3">
               <div onClick={() => handleLike(item._id)} className='icon-container'>
-                <FaHeart className='icons' />
+                <FaHeart className='red-icons' />
               </div>
               <img width="300px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
 

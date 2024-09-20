@@ -14,6 +14,8 @@ function CategoryPage() {
   const [categoryproducts, setcategoryproducts] = useState('');
   const [search, setsearch] = useState('');
   const [issearch, setissearch] = useState(false);
+  const [likedproducts, setlikedproducts] = useState([]);
+  const [refresh, setrefresh] = useState(false);
   useEffect(() => {
     const url = API_URL + '/get-products?catName=' + param.catName;
     axios.get(url)
@@ -28,7 +30,18 @@ function CategoryPage() {
       .catch((err) => {
         alert('server error')
       })
-  }, [param])
+    const url2 = API_URL + '/get-liked-products'
+    let data = { userId: localStorage.getItem('userId') }
+    axios.post(url2, data)
+      .then((res) => {
+        if (res.data.products) {
+          setlikedproducts(res.data.products);
+        }
+      })
+      .catch((err) => {
+        alert('server error')
+      })
+  }, [param, refresh])
 
 
   const handlesearch = (value) => {
@@ -54,14 +67,36 @@ function CategoryPage() {
     setcategoryproducts(filteredProducts);
 
   }
-  const handleLike = (productId) => {
+  const handleLike = (productId, e) => {
+    e.stopPropagation();
     let userId = localStorage.getItem('userId');
     const url = API_URL + 'liked-products'
     const data = { userId, productId }
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          alert('Liked successfully....')
+          // alert('Liked successfully....')
+          setrefresh(!refresh);
+        }
+      })
+      .catch((err) => {
+        alert('server error')
+      })
+  }
+  const handleDisLike = (productId, e) => {
+    e.stopPropagation();
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('Please Login First...')
+      return;
+    }
+    const url = API_URL + '/disliked-products'
+    const data = { userId, productId }
+    axios.post(url, data)
+      .then((res) => {
+        if (res.data.message) {
+          // alert('DisLiked successfully....')
+          setrefresh(!refresh)
         }
       })
       .catch((err) => {
@@ -102,8 +137,14 @@ function CategoryPage() {
         {products && products.length > 0 && products.map((item, index) => {
           return (
             <div onClick={() => { handleProduct(item._id) }} key={item._id} className="card m-3">
-              <div onClick={() => handleLike(item._id)} className='icon-container'>
-                <FaHeart className='icons' />
+              <div className='icon-container'>
+                {
+                  likedproducts.find((likedItem) =>
+                    likedItem._id === item._id
+                  ) ?
+                    <FaHeart onClick={(e) => handleDisLike(item._id, e)} className='red-icons' /> :
+                    <FaHeart onClick={(e) => handleLike(item._id, e)} className='icons' />
+                }
               </div>
               <img width="250px" height="200px" src={process.env.REACT_APP_BASE_URL + `/uploads/${item.productimage}`} />
               <p className="m-2 price-text"> ₹ {item.productprice} /-</p>

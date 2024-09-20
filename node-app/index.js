@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
 
 app.get('/search', productController.search)
 app.post('/liked-products', userController.likedProducts)
+app.post('/disliked-products', userController.dislikedProducts)
 app.post('/add-product', upload.fields([{ name: 'productimage' }, { name: 'productimage2' }]), productController.addProduct )
 app.get('/get-products', productController.getProducts)
 app.post('/get-liked-products', productController.getlikedProducts)

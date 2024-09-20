@@ -22,6 +22,18 @@ module.exports.likedProducts = (req, res) => {
     })
 }
 
+module.exports.dislikedProducts = (req, res) => {
+  let productId = req.body.productId;
+  let userId = req.body.userId;
+  Users.updateOne({ _id: userId }, { $pull: { likedProducts: productId } })
+    .then(() => {
+      res.send({ message: 'Disliked success...' })
+    })
+    .catch(() => {
+      res.send({ message: 'server error' })
+    })
+}
+
 module.exports.signUp = (req, res) => {
   const userId = req.body.userId
   Products.find({ addedBy: userId })
