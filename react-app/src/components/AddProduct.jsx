@@ -38,7 +38,7 @@ function AddProduct() {
       // formdata.append('productimage4', productimage4);
       // formdata.append('productimage5', productimage5);
       formdata.append('userId', localStorage.getItem('userId'));
-      const url = API_URL + 'add-product'
+      const url = API_URL + '/add-product'
       axios.post(url, formdata, {
         headers: {
           'Content-Type': 'multipart/form-data'

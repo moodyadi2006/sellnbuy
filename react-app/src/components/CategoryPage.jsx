@@ -75,7 +75,7 @@ function CategoryPage() {
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          // alert('Liked successfully....')
+          alert('Liked successfully....')
           setrefresh(!refresh);
         }
       })
@@ -95,7 +95,7 @@ function CategoryPage() {
     axios.post(url, data)
       .then((res) => {
         if (res.data.message) {
-          // alert('DisLiked successfully....')
+          alert('DisLiked successfully....')
           setrefresh(!refresh)
         }
       })
