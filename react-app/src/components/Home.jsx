@@ -53,7 +53,7 @@ function Home() {
     setcategoryproducts(filteredProducts);
   }
 
-  const handleLike = (productId,e) => {
+  const handleLike = (productId, e) => {
     e.stopPropagation();
     let userId = localStorage.getItem('userId');
     if (!userId) {

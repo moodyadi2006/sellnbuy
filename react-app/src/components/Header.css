@@ -52,6 +52,44 @@
 
 .category {
   color: rgba(0, 47, 52, 1);
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
+}
+
+
+.dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+.category:hover {
+  background-color: #f0f0f0;
+
+}
+
+.custom-icon {
+  fill: white;
+  /* Change color to white */
+  margin-left: 10px;
+  /* Adjust margin as needed */
+}
+
+.arrow {
+  margin-left: 17px;
+  /* Space between text and arrow */
+  border: solid transparency;
+  /* Base for the arrow */
+  border-width: 5px 5px 0 5px;
+}
+
+.arrow.down {
+  border-bottom-color: #002f34;
+}
+
+.arrow.up {
+  border-top-color: #002f34;
 }
