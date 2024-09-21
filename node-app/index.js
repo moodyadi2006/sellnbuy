@@ -2,7 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 var jwt = require('jsonwebtoken');
-const multer = require('multer')
+const multer = require('multer');
+const http = require('http');
+const { Server } = require('socket.io');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads')
@@ -15,6 +17,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 const bodyParser = require('body-parser')
 const app = express()
+const httpServer = http.createServer(app)
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*'
+  }
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors())
 app.use(bodyParser.json())
@@ -38,7 +46,9 @@ app.get('/search', productController.search)
 app.post('/liked-products', userController.likedProducts)
 app.post('/disliked-products', userController.dislikedProducts)
 app.post('/add-product', upload.fields([{ name: 'productimage' }, { name: 'productimage2' }]), productController.addProduct)
+app.post('/edit-product', upload.fields([{ name: 'productimage' }, { name: 'productimage2' }]), productController.editProduct)
 app.get('/get-products', productController.getProducts)
+app.post('/delete-product', productController.deleteProduct)
 app.post('/get-liked-products', userController.getlikedProducts)
 app.post('/my-products', productController.myProducts)
 app.get('/get-product/:pId', productController.getProductsPid)
@@ -46,7 +56,14 @@ app.get('/my-profile/:userId', userController.myProfileuid)
 app.get('/get-user/:uId', userController.getUseruid)
 app.post('/signup', userController.signUp)
 app.post('/login', userController.login)
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+let messages = [];
+io.on('connection', (socket) => {
+  socket.on('sendMsg', (data) => {
+    messages.push(data)
+    io.emit('getMsg',messages)
+  })
+  io.emit('getMsg',messages)
+})
+httpServer.listen(port, () => {
+  console.log(`Example http server listening on port ${port}`)
 })

@@ -117,7 +117,7 @@ function CategoryPage() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
+              <img width="300px" height="200px" src={API_URL + `/uploads/${item.productimage}`} />
               {/*`/uploads/${item.productimage}`   //Remember */}
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <h3 className="m-2 text-danger"> ₹ {item.productprice} /- </h3>
@@ -140,7 +140,7 @@ function CategoryPage() {
                     <FaHeart onClick={(e) => handleLike(item._id, e)} className='icons' />
                 }
               </div>
-              <img width="250px" height="200px" src={API_URL + '/' + item.productimage} />  {/*Remember*/}
+              <img width="250px" height="200px" src={API_URL + `/uploads/${item.productimage}`} />  {/*Remember*/}
               <p className="m-2 price-text"> ₹ {item.productprice} /-</p>
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <p className="m-2 text-success">{item.productdescription}</p>

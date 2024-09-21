@@ -64,6 +64,27 @@ function MyProducts() {
         alert('server error')
       })
   }
+  const handleDel = (pid) => {
+    if (!localStorage.getItem('userId')) {
+      alert('Please Login First')
+      return;
+    }
+    const url = API_URL + '/delete-product';
+    const data = {
+      pid,
+      userId: localStorage.getItem('userId')
+    }
+    axios.post(url, data)
+      .then((res) => {
+        if (res.data.message) {
+          alert('Deleted successfully....')
+          setrefresh(!refresh);
+        }
+      })
+      .catch((err) => {
+        alert('server error')
+      })
+  }
   return (
     <div>
       <Header search={search} handlesearch={handlesearch} handleClick={handleClick} />
@@ -75,7 +96,7 @@ function MyProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
+              <img width="300px" height="200px" src={API_URL + `/uploads/${item.productimage}`} />
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <h3 className="m-2 text-danger"> {item.productprice} </h3>
               <p className="m-2 text-success">{item.productdescription}</p>
@@ -92,12 +113,14 @@ function MyProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} />
-
+              <img width="300px" height="200px" src={API_URL + `/uploads/${item.productimage}`} />
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <h3 className="m-2 text-danger"> ₹ {item.productprice} /-</h3>
               <p className="m-2 text-success">{item.productdescription}</p>
-
+              <p className="m-2 text-success">
+                <Link to={`/edit-product/${item._id}`}> EDIT PRODUCT </Link>
+              </p>
+              <button onClick={() => handleDel(item._id)} className='delete-btn'> DELETE PRODUCT </button>
             </div>
           )
         })}

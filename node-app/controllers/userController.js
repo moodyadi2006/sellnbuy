@@ -87,7 +87,7 @@ module.exports.login = (req, res) => {
           const token = jwt.sign({
             data: result
           }, 'MY_KEY', { expiresIn: 60 * 60 });
-          res.send({ message: 'user found', token: token, userId: result._id })
+          res.send({ message: 'user found', token: token, userId: result._id, username: result.username })
         } else {
           res.send({ message: "password not match" })
         }

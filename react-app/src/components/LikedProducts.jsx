@@ -75,7 +75,7 @@ function LikedProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='icons' />
               </div>
-              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} /> {/*Remember */}
+              <img width="300px" height="200px" src={API_URL + `/uploads/${item.productimage}` } /> {/*Remember */}
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <p className="m-2 text-danger"> ₹ {item.productprice} /-</p>
               <p className="m-2 text-success">{item.productdescription}</p>
@@ -91,7 +91,7 @@ function LikedProducts() {
               <div onClick={() => handleLike(item._id)} className='icon-container'>
                 <FaHeart className='red-icons' />
               </div>
-              <img width="300px" height="200px" src={API_URL + '/' + item.productimage} /> {/*Remember */}
+              <img width="300px" height="200px" src={API_URL + `/uploads/${item.productimage}`} /> {/*Remember */}
 
               <p className="m-2 text-primary"> {item.productname} | {item.productcategory}</p>
               <h3 className="m-2 text-danger"> {item.productprice} </h3>

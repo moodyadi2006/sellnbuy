@@ -18,6 +18,17 @@
   color: #aaa;
 }
 
+.delete-btn {
+  height: 36px;
+  outline: none;
+  color: white;
+  background-color: #002f34;
+  border-radius: 4px;
+  border: none;
+  padding: 1px 16px;
+  margin-right: 10px;
+}
+
 .icon-container {
   position: absolute;
   top: 0;
