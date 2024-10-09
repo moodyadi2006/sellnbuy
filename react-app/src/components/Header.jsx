@@ -89,7 +89,7 @@ function Header(props) {
   return (
     <div className="header-container d-flex justify-content-between">
       <div className="header">
-        <Link className='links' to="/" > HOME </Link>
+        <Link className='links' to="/" > $ell&buy </Link>
         <select value={loc} onChange={(e) => {
           localStorage.setItem('userLoc', e.target.value)
           setloc(e.target.value)

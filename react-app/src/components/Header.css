@@ -91,3 +91,9 @@
 .arrow.up {
   border-top-color: #002f34;
 }
+
+.links {
+  color: rgba(0, 47, 52, 1);
+  font-weight: bold;
+  text-decoration: underline;
+}
